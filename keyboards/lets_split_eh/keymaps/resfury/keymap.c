@@ -34,20 +34,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |   /  |
+ * | Esc  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |   /  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Func/TAB |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   R  |   L  |   -   |
+ * |F/TAB |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   R  |   L  |   -  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |  Shift   |
+ * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI   | Alt  | Enter  |Lower |  Bkspc | Space |Raise | Left | Down |  Up  |Right |
+ * | Ctrl |  GUI | Alt  | Ent  |Lower | Bksp | Space| Raise| Home | End  | Left |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT( \
-  KC_TAB,        	KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_SLSH, \
+  KC_ESC,        	KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_SLSH, \
   LT(_FUNCTION,KC_TAB), KC_A,	 KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_MINS, \
   OSM(MOD_LSFT), 	KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W, 	  KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,       	KC_LGUI, KC_LALT, KC_ENT, LOWER, KC_BSPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_LCTL,       	KC_LGUI, KC_LALT, KC_ENT, LOWER, KC_BSPC, KC_SPC, RAISE, KC_HOME, KC_END,  KC_LEFT, KC_RGHT  \
 ),
 
 /* Lower
@@ -56,16 +56,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ~   |  `   | Mute |      |  |   |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  ~   |  `   | Mute | Ctrl/|  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |Lower | Bksp | Bksp |Raise | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |Lower | Bksp | Space|Raise | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT( \
   KC_ESC,  KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,   KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,  \
   _______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,   KC_PLUS, KC_LCBR, KC_RCBR, _______, \
-  _______, KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_GRV), KC_GRV,  KC_MUTE, _______, KC_PIPE, \
-  _______, _______,  _______, _______, _______, KC_BSPC, KC_BSPC, _______,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
+  _______, KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_GRV), KC_GRV,  KC_MUTE, RCTL(KC_BSLS), KC_PIPE, \
+  _______, _______,  _______, _______, _______, KC_BSPC, KC_SPC, _______,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 ),
 
 /* Raise
