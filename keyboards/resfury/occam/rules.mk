@@ -1,5 +1,5 @@
 # MCU name
-MCU = atxmega32u4
+MCU = atxmega32a4u
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -32,7 +32,7 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+F_USB = 12000000
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
