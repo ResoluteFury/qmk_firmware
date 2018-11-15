@@ -9,6 +9,8 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _DVORAK 0
+#define _COLEMAK 1
+#define _QWERTY 2
 
 #define _LOWER 3
 #define _RAISE 4
@@ -17,6 +19,8 @@ extern keymap_config_t keymap_config;
 
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
+  COLEMAK,
+  QWERTY,
   LOWER,
   RAISE,
   ADJUST
@@ -32,7 +36,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Dvorak
+  /* Dvorak
  * ,-----------------------------------------------------------------------------------.
  * | Esc  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |   /  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -44,10 +48,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT( \
-  KC_ESC,        	KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_SLSH, \
-  LT(_FUNCTION,KC_TAB), KC_A,	 KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_MINS, \
-  OSM(MOD_LSFT), 	KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W, 	  KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,       	KC_LGUI, KC_LALT, KC_ENT, LOWER, KC_BSPC, KC_SPC, RAISE, KC_HOME, KC_END,  KC_LEFT, KC_RGHT  \
+  KC_ESC,        	      KC_QUOT,  KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_SLSH, \
+  LT(_FUNCTION,KC_TAB), KC_A,	    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_MINS, \
+  OSM(MOD_LSFT), 	      KC_SCLN,  KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W, 	 KC_V,    KC_Z,    KC_RSFT, \
+  KC_LCTL,       	      KC_LGUI,  KC_LALT, KC_ENT, LOWER, KC_BSPC, KC_SPC, RAISE, KC_HOME, KC_END,  KC_LEFT, KC_RGHT  \
+),
+
+/* Colemak
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   Q  |   W  |   F  |   G  |   J  |   L  |   U  |   Y  |   ;  |   [  |   ]  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |F/TAB |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   '  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |  GUI | Alt  | Ent  |Lower | Bksp | Space| Raise| Home | End  | Left |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_COLEMAK] = LAYOUT( \
+  KC_ESC,               KC_Q,     KC_W,    KC_F,    KC_G,  KC_J,    KC_L,   KC_U,  KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, \
+  LT(_FUNCTION,KC_TAB), KC_A,     KC_R,    KC_S,    KC_T,  KC_D,    KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  OSM(MOD_LSFT),        KC_Z,     KC_X,    KC_C,    KC_V,  KC_B,    KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+  KC_LCTL,              KC_LGUI,  KC_LALT, KC_ENT,  LOWER, KC_BSPC, KC_SPC, RAISE, KC_HOME, KC_END,  KC_LEFT, KC_RGHT  \
+),
+
+ /* Qwerty
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |   \  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |F/TAB |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |  GUI | Alt  | Ent  |Lower | Bksp | Space| Raise| Home | End  | Left |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_QWERTY] = LAYOUT( \
+  KC_ESC,               KC_Q,     KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSLS, \
+  LT(_FUNCTION,KC_TAB), KC_A,     KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  OSM(MOD_LSFT),        KC_Z,     KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+  KC_LCTL,              KC_LGUI,  KC_LALT, KC_ENT,  LOWER, KC_BSPC, KC_SPC, RAISE, KC_HOME, KC_END,  KC_LEFT, KC_RGHT  \
 ),
 
 /* Lower
@@ -90,35 +130,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |Taskmg|      |      |      |      |      |      |      |RGBVAI|RGBSAI|RGBHUI|caltde|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |Qwerty|RGBVAD|RGBSAD|RGBHUD|RGBTOG|
+ * |_COLEMAK|    |      |      |      |      |      |      |RGBVAD|RGBSAD|RGBHUD|RGBTOG|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |BLSTEP|
+ * |_DVORAK|     |      |      |      |      |      |      |      |      |      |BLSTEP|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      | RESET|
+ * |_QWERTY|     |      |      |      |      |      |      |      |      |      | RESET|
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT( \
-  TSKMGR,  _______, _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
-  _______, _______, _______, _______, _______, _______, _______, DVORAK,  RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_STEP, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    \
+  TSKMGR,       _______, _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
+  DF(_COLEMAK), _______, _______, _______, _______, _______, _______, _______, RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
+  DF(_DVORAK),  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_STEP, \
+  DF(_QWERTY),  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    \
 ),
 
 /* Function
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |  Up  |      |      |      |
+ * | Caps |      |      |      |      |      |      |      |  Up  |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | Left | Down |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNCTION] = LAYOUT( \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______, \
+  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 )
 

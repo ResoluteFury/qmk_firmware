@@ -4,9 +4,10 @@
 #include "version.h"
 #include "quantum.h"
 
-#define BASE 0 // default layer
-#define NUMB 1 // numbers
-#define SYMB 2 // symbols
+#define DVORAK 0 // default layer
+#define COLEMAK 1
+#define NUMB 2 // numbers
+#define SYMB 3 // symbols
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
@@ -15,7 +16,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Keymap 0: Basic Layer
+/* Keymap 0: Basic Dvorak Layer
 *
 * ,------+------+------+------+------+------.                    ,------+------+------+------+------+------.
 * | ESC  |   '   |   ,  |   .  |   P  |   Y  |                    |   F  |   G  |   C  |   R  |  L  |  /   |
@@ -24,8 +25,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|                    |------+------+------+------+-----+-------|
 * |LShift|   ;   |   Q  |   J  |   K  |   X  |                    |   B  |  M  |   W  |   V  |   Z  |RShift|
 * |------+------+------+------+------+------'                    `------+------+------+------+-----+-------|
-* | LCtrl| GUI | LAlt | Left | Right|                                   |  Up  | Down |   [  |   ]  | RAlt |
-* `----------------------------------'                                  `-----------------------------------'
+* | LCtrl| GUI | LAlt | Left | Right|                                   |  Up  | Down |   [  |   ]  | RCtrl|
+* `----------------------------------'                                  `----------------------------------'
 *                                      ,-------------.   ,--------------.
 *                                      |       |      |  | Home | Delete|
 *                               ,------|  Enter| PgUp |  |      |       |-------.
@@ -37,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 */
 
-[BASE] = LAYOUT_lightcycle(  // layer 0 : default
+[DVORAK] = LAYOUT_lightcycle(  // layer 0 : default
         // left hand
           KC_ESC,       KC_QUOT,   KC_COMM,  KC_DOT,   KC_P,    KC_Y,                     
           KC_TAB,       KC_A,      KC_O,     KC_E,     KC_U,    KC_I,                     
@@ -50,12 +51,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_F,         KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,          
                   KC_D,         KC_H,     KC_T,     KC_N,     KC_S,     KC_MINS,          
                   KC_B,         KC_M,     KC_W,     KC_V,     KC_Z,     KC_RSFT,          
-                                KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,  KC_RALT,          
+                                KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,  KC_RCTL,          
         KC_HOME,  KC_DEL,                                                                 
         KC_END,   MO(SYMB), KC_SPC                                                          
     ),
 
-/* Keymap 1: Number Layer
+/* Keymap 1: Basic Colemak Layer
+*
+* ,------+------+------+------+------+------.                    ,------+------+------+------+------+------.
+* | ESC  |   Q   |   W  |   F  |   P  |   G  |                    |   J  |   L  |   U  |   Y  |  ;  |  '   |
+* |------+------+------+------+------+------|                    |------+------+------+------+-----+-------|
+* | TAB  |   A   |   R  |   S  |   T  |   D  |                    |   H  |   N  |   E  |   I  |  O  |  -   |
+* |------+------+------+------+------+------|                    |------+------+------+------+-----+-------|
+* |LShift|   Z   |   X  |   C  |   V  |   B  |                    |   K  |  M  |   ,  |   .  |   /  |RShift|
+* |------+------+------+------+------+------'                    `------+------+------+------+-----+-------|
+* | LCtrl| GUI | LAlt | Left | Right|                                   |  Up  | Down |   [  |   ]  | RCtrl|
+* `----------------------------------'                                  `----------------------------------'
+*                                      ,-------------.   ,--------------.
+*                                      |       |      |  | Home | Delete|
+*                               ,------|  Enter| PgUp |  |      |       |-------.
+*                               | Back |-------|      |  |      |-------|       |
+*                               | Space|       | ---- |  |------|       | Space |
+*                               |      |  ~1   | PgDn |  |  End |  ~2   |       |
+*                               |      |       |      |  |      |       |       |
+*                               `--------------------'   `---------------------'
+*
+*/
+
+[COLEMAK] = LAYOUT_lightcycle(  // layer 1 :
+        // left hand
+          KC_ESC,       KC_Q,     KC_W,     KC_F,     KC_P,    KC_G,                     
+          KC_TAB,       KC_A,     KC_R,     KC_S,     KC_T,    KC_D,                     
+          KC_LSFT,      KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,                     
+          KC_LCTL,      KC_LGUI,  KC_LALT,  KC_LEFT,  KC_RGHT,                           
+                                                                      KC_ENT,  KC_PGUP,  
+                                                             KC_BSPC, MO(NUMB), KC_PGDN,
+                                                                                          
+        // right hand                                                                     
+                  KC_J,         KC_L,     KC_U,     KC_Y,     KC_SCLN,  KC_QUOT,          
+                  KC_H,         KC_N,     KC_E,     KC_I,     KC_O,     KC_MINS,          
+                  KC_K,         KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,          
+                                KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,  KC_RCTL,          
+        KC_HOME,  KC_DEL,                                                                 
+        KC_END,   MO(SYMB), KC_SPC                                                          
+    ),
+
+/* Keymap 2: Number Layer
  *
  * ,--------------------------------------------.                    ,-----------------------------------------.
  * |Versn |  F1  |  F2  |  F3  |  F4  | Alt+Tab |                    | Calc |   7  |   8  |   9  |   -  |      |
@@ -72,17 +113,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |------|      |  |      |------|      |
  *                               |      |++++++|------|  |------|      |      |
  *                               |      |++++++|      |  |      | RShft|  0   |
- *                               |      |++++++|      |  | Menu |      |      |
+ *                               |      |++++++|      |  | Caps |      |      |
  *                               |      |++++++|      |  |      |      |      |
  *                               `--------------------'  `--------------------'
  */
 // Numbers
 [NUMB] = LAYOUT_lightcycle(
        // left hand
-          VRSN,    KC_F1,   KC_F2,    KC_F3,    KC_F4,    RALT(KC_TAB),
-          KC_TRNS, KC_F5,   KC_F6,    KC_F7,    KC_F8,    RCTL(KC_S),
-          KC_TRNS, KC_F9,   KC_F10,   KC_F11,   KC_F12,   RCTL(KC_F),
-          RESET,   KC_TRNS, KC_TRNS,  KC_WBAK,  KC_WFWD,
+          DF(DVORAK),    KC_F1,   KC_F2,    KC_F3,    KC_F4,    RALT(KC_TAB),
+          DF(COLEMAK),   KC_F5,   KC_F6,    KC_F7,    KC_F8,    RCTL(KC_S),
+          KC_TRNS,       KC_F9,   KC_F10,   KC_F11,   KC_F12,   RCTL(KC_F),
+          RESET,         KC_TRNS, KC_TRNS,  KC_WBAK,  KC_WFWD,
                                                          KC_TRNS,  KC_TRNS,
                                                KC_TRNS,  KC_TRNS,  KC_TRNS,
        // right hand
@@ -91,10 +132,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,        KC_1,    KC_2,    KC_3,    KC_ASTR,   KC_TRNS,
                                 KC_WBAK, KC_WFWD, KC_DOT,  KC_SLSH,   KC_TRNS,
       KC_RALT,  KC_RCTL,
-      KC_APP,  KC_RSFT,  KC_0
+      KC_CAPS,  KC_RSFT,  KC_0
 ),
 
-/* Keymap 2: Symbol Layer
+/* Keymap 3: Symbol Layer
  *
  * ,-------------------------------------------.                    ,-----------------------------------------.
  * |      |   !  |  @   |  #   |  $   | Alt+F4 |                    | Cut  |      |      |      |      |      |
@@ -110,8 +151,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               ,------|      |  +   |  |      |      |------.
  *                               |      |------| prscr|  |      |------|      |
  *                               |      |      |------|  |------|++++++|      |
- *                               |  Caps| LShft|      |  |      |++++++|      |
- *                               |  Lock|      | Prt  |  |      |++++++|      |
+ *                               |  Menu| LShft|      |  |      |++++++|      |
+ *                               |      |      | Prt  |  |      |++++++|      |
  *                               |      |      | Scr  |  |      |++++++|      |
  *                               `--------------------'  `--------------------'
  */
@@ -123,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TRNS,   KC_LPRN,  KC_RPRN,  KC_MINS,  KC_EQL,  RGUI(KC_L),
           KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_GRV,   KC_PIPE,
                                                          KC_PAUSE, RALT(KC_PSCR),
-                                               KC_CAPS,  KC_LSFT,  KC_PSCR,
+                                               KC_APP,  KC_LSFT,  KC_PSCR,
        // right hand
                 RCTL(KC_X),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                 RCTL(KC_C),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
